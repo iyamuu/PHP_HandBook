@@ -38,6 +38,12 @@ if (empty($_GET)) {
   // Viewによる表示
   require("./temp/reserveDay.php");
 } else if ($_GET["page"] == "reserveRoomList") {
+
+  $date = $_POST["reserveDay"];
+  // Roomを取得
+  require("./repository/ReserveRepository.php");
+  $ReserveRepository = new ReserveRepository;
+  $RoomList = $ReserveRepository->findByDate($date);
   
   // Viewによる表示
   require("./temp/reserveRoomList.php");

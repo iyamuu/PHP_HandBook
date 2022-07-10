@@ -43,15 +43,28 @@
         <!-- 各ページスクリプト挿入場所 -->
         <section>
           <h2>空室検索</h2>
-          <h3>(**検索日付**)の空室一覧</h3>
-          <p>(**空室数**)部屋の空室があります</p>
+          <h3><?php echo date("y/m/d", strtotime($date)) ?>の空室一覧</h3>
+          <p><?php echo sizeof($RoomList) ?>部屋の空室があります</p>
+          <!-- <h3>(**検索日付**)の空室一覧</h3>
+          <p>(**空室数**)部屋の空室があります</p> -->
           <table>
             <th>お部屋名称</th>
             <th>お部屋タイプ</th>
             <th>一泊料金<br />（部屋単位）</th>
             <th colspan="2">お部屋イメージ</th>
             <?php
-            
+
+            foreach ($RoomList as $key => $val) {
+              print <<<TRTD
+              <tr>
+                <td>{$val->getRoom_name()}</td>
+                <td>{$val->getRoom_type()->getType_name()}</td>
+                <td class="number">&yen;{$val->getDayfee()}</td>
+                <td><img class="small" src="./temp/images/{$val->getMain_image()}"></td>
+                <td><a href="./index.php?page=roomDetail&room_no={$val->getRoom_no()}">選択</a></td>
+                </tr> 
+              TRTD;
+            }
             ?>
           </table>
         </section>
@@ -84,9 +97,7 @@
     Copyright c 2016 Jikkyo Pension All Rights Reserved.
   </footer>
   <!-- フッター：終了 -->
-  <?php
   
-  ?>
 
 </body>
 
